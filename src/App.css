@@ -1,38 +1,65 @@
+body {
+  background-color: #f4f4f4;
+  color: #333;
+  font-family: Arial, sans-serif;
+}
+
 .App {
   text-align: center;
 }
 
+.logo-app {
+  width: 15%;
+  height: auto;
+}
+.App-header {
+  background-color: #fff;
+  padding: 20px;
+  color: #333;
+}
+
 .App-logo {
-  height: 40vmin;
+  height: 50px;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.grid-platillos {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.grid-platillos > div {
+  flex-basis: calc(25% - 10px);
+  margin: 5px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.platillo-imagen {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 600px) {
+  .platillo-imagen {
+    width: 100%;
   }
-  to {
-    transform: rotate(360deg);
-  }
+}
+
+.boton-seleccionar {
+  background-color: #212121;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.boton-seleccionar:hover {
+  background-color: #353535;
 }
