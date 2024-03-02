@@ -1,4 +1,4 @@
-import LogoTitulo from './components/LogoTitulo';
+{/*import LogoTitulo from './components/LogoTitulo';
 import GridPlatillos from './components/GridPlatillos';
 import './App.css';
 
@@ -23,5 +23,70 @@ const platillos = [
     </div>
   );
 }
+*/}
+
+import { useEffect, useState } from "react";
+import { Container, InputGroup, Form, Button, Row, Col } from "react-bootstrap";
+import PokemonCard from "./Components/PokemonCard";
+
+function App() {
+  const [pokemonList, setPokemonList] = useState([]);
+  const [searchText, setSearchText] = useState("");
+
+  const URL = "https://pokeapi.co/api/v2/pokemon?limit=150&offset=0";
+
+  useEffect(() => {
+    fetch(URL)
+      .then((response) => response.json())
+      .then((data) => {
+        setPokemonList(data.results);
+      });
+  }, []);
+
+  // Función para filtrar los Pokémon por nombre
+  const filterPokemon = (pokemon) => {
+    return pokemon.name.toLowerCase().includes(searchText.toLowerCase());
+  };
+
+  // Función para dividir la lista de Pokémon en filas y columnas
+  const chunkArray = (arr, chunkSize) => {
+    const chunks = [];
+    for (let i = 0; i < arr.length; i += chunkSize) {
+      chunks.push(arr.slice(i, i + chunkSize));
+    }
+    return chunks;
+  };
+
+  return (
+    <div className="App">
+      <Container>
+        <InputGroup className="mb-3">
+          <Form.Control
+            type="text"
+            placeholder="Buscar Pokémon"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+          <Button variant="outline-secondary">Buscar</Button>
+        </InputGroup>
+
+        {chunkArray(pokemonList.filter(filterPokemon), 3).map((row, rowIndex) => (
+          <Row key={rowIndex}>
+            {row.map((pokemon, index) => (
+              <Col key={index} md={4}>
+                <PokemonCard
+                  name={pokemon.name}
+                  image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemon.url.split("/")[6]}.png`}
+                />
+              </Col>
+            ))}
+          </Row>
+        ))}
+
+      </Container>
+    </div>
+  );
+}
+
 
 export default App;
